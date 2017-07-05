@@ -55,6 +55,8 @@ class DefaultController extends Controller
             }elseif($now>=$threePM && $now<=$midnight) {
                 $message = "Ürününüz yarın kargoya verilecektir/onaylanacaktır.";
             }
+
+            //$commonService->setLog($customerId,$productId,$message); //Yapılan işlemlerin logunu tutuyorum
         }
 
         return $this->render("AppBundle::productdetail.html.twig",["productDetail"=>$productDetail,"categories"=>$categories,"message"=>$message]);

@@ -101,6 +101,14 @@ class CommonService
 
     }
 
+    /**
+     * @param $logData
+     */
+
+    public function setLog($customerId, $productId, $logData){
+        // TODO: LOGLAMA İŞLEMLERİ BURADAN YAPILACAK
+    }
+
 
 
 }
