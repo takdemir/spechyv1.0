@@ -49,11 +49,11 @@ class DefaultController extends Controller
             $sevenAM=date("Y-m-d 07:00:00");
             $threePM=date("Y-m-d 15:00:00");
 
-            $message="Ürününüz bugün çalışma saatleri içinde kargoya verilecektir.";
+            $message="Ürününüz bugün çalışma saatleri içinde kargoya verilecektir/onaylanacaktır.";
             if($now>=$sevenAM && $now<$threePM){
-                $message="Ürününüz bugün kargoya verilecektir.";
+                $message="Ürününüz bugün kargoya verilecektir/onaylanacaktır.";
             }elseif($now>=$threePM && $now<=$midnight) {
-                $message = "Ürününüz yarın kargoya verilecektir.";
+                $message = "Ürününüz yarın kargoya verilecektir/onaylanacaktır.";
             }
         }
 
