@@ -17,6 +17,10 @@ services:
           class: AppBundle\Services\CommonService
           arguments: ["@doctrine.orm.entity_manager","@session","@security.authorization_checker"]
 
+      app.services.productservices:
+          class: AppBundle\Services\ProductSevices
+          arguments: ["@doctrine.orm.entity_manager","@app.services.commonservices"]
+
       app.twig.twigfunctions:
           class: AppBundle\Twig\TwigFunctions
           public: false

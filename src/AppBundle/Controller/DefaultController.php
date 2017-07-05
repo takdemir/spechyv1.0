@@ -11,7 +11,9 @@ class DefaultController extends Controller
 
     public function indexAction(Request $request)
     {
-
+        $commonService=$this->get("app.services.commonservices");
+        $productService=$this->get("app.services.productservices");
+        $productService->getProducts();
         return $this->render("AppBundle::index.html.twig");
     }
 }

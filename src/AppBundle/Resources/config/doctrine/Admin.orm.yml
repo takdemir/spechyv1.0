@@ -1,0 +1,63 @@
+AppBundle\Entity\Admin:
+    type: entity
+    table: admin
+
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        isCustomer:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: isCustomer
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        username:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        roles:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+
+        phone:
+            type: string
+            nullable: true
+            length: 15
+            options:
+                fixed: false
+            column: phone
+        lastentrance:
+            type: datetime
+            nullable: false
+            column: lastEntrance
+    lifecycleCallbacks: {  }
