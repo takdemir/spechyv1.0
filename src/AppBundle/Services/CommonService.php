@@ -26,6 +26,10 @@ class CommonService
     }
 
 
+    /**
+     * @param string $languageAbbreviation
+     * @return array
+     */
     public function getLanguageDetails($languageAbbreviation='tr'){
 
         $language=[];
@@ -33,6 +37,10 @@ class CommonService
 
     }
 
+    /**
+     * @param $arr
+     * @param string $type
+     */
     public function printR($arr,$type='p'){
         echo '<pre>';
         if($type=='u'){
@@ -44,6 +52,10 @@ class CommonService
     }
 
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function secureSqlinjection($data){
 
         $pattern=["select","update","delete","insert","from"];
@@ -53,10 +65,19 @@ class CommonService
 
     }
 
+    /**
+     * @return Session
+     */
     public function getSessionInstance(){
         return $this->session;
     }
 
+
+    /**
+     * @param string $messageType
+     * @param string $message
+     * @return bool
+     */
     public function setMessage($messageType='error',$message=""){
 
         $this->session->getFlashBag()->set($messageType,$message);
@@ -66,6 +87,9 @@ class CommonService
     }
 
 
+    /**
+     * @return bool
+     */
     public function checkUserAuthorisation(){
 
         $isGranted=$this->authorizationChecker->isGranted("ROLE_USER");

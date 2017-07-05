@@ -10,6 +10,12 @@ use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 class CustomExceptionController extends ExceptionController
 {
 
+    /**
+     * @param Request $request
+     * @param FlattenException $exception
+     * @param DebugLoggerInterface|null $logger
+     * @return Response
+     */
 
     public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null)
     {
@@ -32,6 +38,10 @@ class CustomExceptionController extends ExceptionController
    }
 
 
+    /**
+     * @param int $startObLevel
+     * @return string
+     */
 
     protected function getAndCleanOutputBuffering($startObLevel)
     {
@@ -45,6 +55,13 @@ class CustomExceptionController extends ExceptionController
     }
 
 
+    /**
+     * @param Request $request
+     * @param string $format
+     * @param int $code
+     * @param bool $showException
+     * @return string
+     */
     protected function findTemplate(Request $request, $format, $code, $showException)
     {
         $name = $showException ? 'exception' : 'error';

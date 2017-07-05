@@ -17,6 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
 class SecurityController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function loginAction(Request $request){
 
         $cs=$this->get("app.services.commonservices");
@@ -46,6 +50,9 @@ class SecurityController extends Controller
     }
 
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
 
     public function logoutAction(){
 
