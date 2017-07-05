@@ -36,7 +36,7 @@ class ProductSevices
                             ->getQuery()
                             ->getArrayResult();
 
-        $this->cs->printR($categories);
+        //$this->cs->printR($categories);
         return $categories;
 
     }
@@ -86,5 +86,52 @@ class ProductSevices
         return $productResult;
 
     }
+
+
+    /**
+     * @param null $productId
+     * @return mixed
+     */
+    public function getProductById($productId=null){
+
+        $products=$this->em->createQueryBuilder()
+            ->select("p")
+            ->addSelect("service")
+            ->from("AppBundle:Products","p")
+            ->leftJoin("p.services","service");
+        if(!is_null($productId)){
+            $products->where("p.id=:id");
+            $products->setParameter("id",$productId);
+        }
+        $productResult=$products->getQuery()
+            ->getArrayResult();
+        //$this->cs->printR($productResult);
+        return $productResult[0];
+
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getTreeForProducts(){
+
+        $categories=$this->getCategories();
+        foreach ($categories as $key=>&$category){
+
+            if(!is_array($category['services']) || count($category['services'])==0){continue;}
+            foreach ($category['services'] as &$service){
+                $products=$this->getProducts($service['id']);
+                if(!is_array($products) || count($products)==0){$service['products']=[];continue;}
+                $service['products']=$products;
+            }
+
+        }
+        //$this->cs->printR($categories);
+        return $categories;
+    }
+
+    
+
 
 }

@@ -1,0 +1,95 @@
+{% extends "::base.html.twig" %}
+
+
+{% block stylesheets %}
+
+        {#<link rel="stylesheet" href="{{ asset("Assets/css/in") }}" />#}
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+
+            {% if app.request.get('addProductToCart')=="" %}
+
+
+                    <table class="table">
+                <h3>{{ productDetail.productName }}</h3>
+            {% for key,prod in productDetail %}
+
+                {% if key != 'visible' and key != 'serviceId' %}
+                    {% if key != 'services' %}
+                        <tr>
+                            <th>{{ key }}</th>
+                            <td>{{ prod }}</td>
+                        </tr>
+                    {% else %}
+
+                        <tr>
+                            <th>{{ key }}</th>
+                            <td>
+                                <table class="table">
+
+                                        {% for k,ser in prod %}
+                                            {% if k != 'visible' and k != 'categoryId' %}
+                                                <tr>
+                                                    <th>{{ k }}</th>
+                                                    <td>{{ ser }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                </table>
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                {% endif %}
+            {% endfor %}
+
+                <tr>
+                    <td colspan="2">
+                        <a href="{{ path('productById',{'productId': app.request.get('productId')}) }}?addProductToCart=true" class="btn btn-success">Satın Al</a>
+                    </td>
+                </tr>
+
+            </table>
+
+            {% elseif app.request.get('addProductToCart')== "true" %}
+
+                Ürün satın alma işleminiz başarılıdır.<br>
+                {{ message }}
+                <br>
+                <strong>(Bu noktadan sonra ürünün, kullanıcı bilgileri ile orders/customer_orders tablosuna eklendiğini kabul ediyoruz)</strong>
+
+            {% else %}
+
+                Hatalı işlem yapıyorsunuz
+
+            {% endif %}
+        </div>
+        <!-- /page content -->
+
+
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+    {#<script type="text/javascript" src="{{ asset("Assets/js/index.js") }}"></script>#}
+
+
+{% endblock %}

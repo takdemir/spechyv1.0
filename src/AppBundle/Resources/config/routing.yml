@@ -4,6 +4,18 @@ homepage:
   path: /
   defaults: {_controller: AppBundle:Default:index}
 
+products:
+  path: /products/{serviceId}
+  defaults: {_controller: AppBundle:Default:getProducts, serviceId: 0}
+  requirements:
+        serviceId: '^\d+$'
+
+productById:
+  path: /product/{productId}
+  defaults: {_controller: AppBundle:Default:getProductById}
+  requirements:
+          productId: '^\d+$'
+
 #SecurityController
 
 login:
