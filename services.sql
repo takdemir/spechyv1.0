@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : symfonyTester
-Source Server Version : 50555
-Source Host           : localhost:3306
-Source Database       : symfonytester
+Source Server         : spechy-dedicated
+Source Server Version : 50552
+Source Host           : 85.95.241.15:3306
+Source Database       : admin_spechy
 
 Target Server Type    : MYSQL
-Target Server Version : 50555
+Target Server Version : 50552
 File Encoding         : 65001
 
-Date: 2017-07-05 16:51:37
+Date: 2017-07-07 01:14:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,15 +32,14 @@ CREATE TABLE `services` (
 -- ----------------------------
 -- Records of services
 -- ----------------------------
-INSERT INTO `services` VALUES ('1', '1', '.com', '1');
-INSERT INTO `services` VALUES ('2', '1', '.net', '1');
-INSERT INTO `services` VALUES ('3', '1', '.org', '1');
+INSERT INTO `services` VALUES ('1', '1', 'Normal Tld', '1');
+INSERT INTO `services` VALUES ('2', '1', '.tr Tld', '1');
 INSERT INTO `services` VALUES ('4', '2', 'Linux Hosting', '1');
 INSERT INTO `services` VALUES ('5', '2', 'Windows Hosting', '1');
-INSERT INTO `services` VALUES ('6', '3', 'Ded-pro-16', '1');
-INSERT INTO `services` VALUES ('7', '3', 'Ded-pro-17', '1');
-INSERT INTO `services` VALUES ('8', '4', 'Cloud-pro-16', '1');
-INSERT INTO `services` VALUES ('9', '4', 'Cloud-pro-17', '1');
+INSERT INTO `services` VALUES ('6', '3', 'Linux Dedicated', '1');
+INSERT INTO `services` VALUES ('7', '3', 'Windows Dedicated', '1');
+INSERT INTO `services` VALUES ('8', '4', 'Linux Cloud', '1');
+INSERT INTO `services` VALUES ('9', '4', 'Windows Cloud', '1');
 INSERT INTO `services` VALUES ('10', '5', 'Rapid SSL', '1');
 INSERT INTO `services` VALUES ('11', '5', 'Comodo SSL', '1');
 INSERT INTO `services` VALUES ('12', '5', 'Geotrust SSL', '1');

@@ -78,7 +78,7 @@
 
                                                             {% if service.products|is_array and service.products|length>0 %}
                                                                 {% for product in service.products %}
-                                                                    <li><a href="{{ path('productById',{'productId':product.id}) }}"> {{ product.productName }} </a></li>
+                                                                    <li><a href="{{ product.slug }}/{{ product.id }}"> {{ product.productName }} </a></li>
                                                                 {% endfor %}
                                                             {% endif %}
 
@@ -92,6 +92,9 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
+                            </li>
+                            <li>
+                                <a href="{{ path('addnewproduct') }}"><i class="fa fa-home"></i> Ürün Ekle</a>
                             </li>
                         </ul>
                     </div>

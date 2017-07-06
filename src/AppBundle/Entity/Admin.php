@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Admin
@@ -21,16 +22,24 @@ class Admin implements UserInterface, \Serializable
 
     /**
      * @var string
+     * @Assert\NotBlank(message= "admin.name.not_blank")
      */
     private $name;
 
     /**
      * @var string
+     * @Assert\NotBlank(message= "admin.username.not_blank")
      */
     private $username;
 
     /**
      * @var string
+     * @Assert\NotBlank(message= "admin.password.not_blank")
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{8,20}$/",
+     *     match=true,
+     *     message="admin.password.needed"
+     * )
      */
     private $password;
 
@@ -41,11 +50,17 @@ class Admin implements UserInterface, \Serializable
 
     /**
      * @var string
+     * @Assert\Email(message = "admin.individual.email")
      */
     private $email;
 
     /**
-     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/^\d{10,11}$/",
+     *     match=true,
+     *     message="admin.phone.needed"
+     * )
      */
     private $phone;
 

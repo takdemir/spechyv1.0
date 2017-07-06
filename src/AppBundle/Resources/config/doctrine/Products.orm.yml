@@ -31,6 +31,12 @@ AppBundle\Entity\Products:
             options:
                 unsigned: false
             column: visible
+        slug:
+            type: string
+            nullable: false
+            options:
+                unsigned: false
+            column: slug
 
     manyToOne:
             services:

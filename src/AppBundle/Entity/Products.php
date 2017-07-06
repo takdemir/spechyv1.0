@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Products
  */
@@ -19,6 +20,7 @@ class Products
 
     /**
      * @var string
+     * @Assert\NotBlank(message= "products.name.not_blank")
      */
     private $productName;
 
@@ -26,6 +28,12 @@ class Products
      * @var integer
      */
     private $visible;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message= "products.slug.not_blank")
+     */
+    private $slug;
 
     /**
      * @var \AppBundle\Entity\Services
@@ -113,6 +121,30 @@ class Products
     public function getVisible()
     {
         return $this->visible;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Products
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

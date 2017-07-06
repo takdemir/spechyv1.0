@@ -2,9 +2,15 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\Products;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 
 class DefaultController extends Controller
 {
@@ -63,4 +69,74 @@ class DefaultController extends Controller
 
 
     }
+
+
+
+
+
+    public function addNewProductAction(Request $request){
+        $commonService=$this->get("app.services.commonservices");
+        $productService=$this->get("app.services.productservices");
+        $categories=$productService->getTreeForProducts();
+        $em=$this->getDoctrine()->getEntityManager();
+        $productEntity=new Products();
+        $services=$productService->getServices(1);
+        $serviceChoices=[];
+        foreach ($services as $service){
+
+            if(!array_key_exists($service['serviceName'],$serviceChoices)){
+                $serviceChoices[$service['serviceName']]=$service['id'];
+            }
+        }
+        //$commonService->printR($serviceChoices);
+        $productForm=$this->createFormBuilder($productEntity)
+                            ->add("productName",TextType::class,[])
+                            ->add("services",EntityType::class, array('class'=>'AppBundle\Entity\Services','choice_label' => 'serviceName','query_builder' => function (EntityRepository $er) {
+                                return $er->createQueryBuilder('p')->where("p.categoryId=1")
+                                    ->orderBy('p.id', 'ASC');
+                            },))
+                            ->add("slug",TextType::class,[])
+                            ->add("save",SubmitType::class,["label"=>"Kaydet"])
+                            ->getForm();
+        $productForm->handleRequest($request);
+        if($productForm->isSubmitted() && $productForm->isValid()){
+
+            $form=$request->request->all();
+            $category=$form['categories'];
+            $serviceId=$form['services'];
+            $productName=$form['form']['productName'];
+            $slug=$form['form']['slug'];
+
+            $postedServiceId=$this->getDoctrine()->getRepository("AppBundle:Services")->find($serviceId);
+
+            $productsInstance=new Products();
+            $productsInstance->setProductName($productName);
+            $productsInstance->setServiceId($postedServiceId);
+            $productsInstance->setSlug($slug);
+            $productsInstance->setVisible(1);
+            $em->persist($productsInstance);
+            $em->flush();
+            $lastInsertedId=$productsInstance->getid();
+            if($lastInsertedId>0){
+                $routeEditter=new RouteCollection();
+                $pattern = '/'.$slug;
+                $defaults = array(
+                    '_controller' => 'AppBundle:Default:newRoute',
+                );
+                $route=new Route($pattern,$defaults);
+                $routeEditter->add('newRoute', $route);
+                $commonService->setMessage('success','Kayıt işlemi başarılı!');
+            }else{
+                $commonService->setMessage('error','Kayıt işlemi başarısız oldu!');
+            }
+
+            $commonService->printR($form);
+        }
+        return $this->render("AppBundle::newproduct.html.twig",["productForm"=>$productForm->createView(),"categories"=>$categories]);
+
+    }
+
+
+
+
 }

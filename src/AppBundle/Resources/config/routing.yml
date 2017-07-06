@@ -16,6 +16,19 @@ productById:
   requirements:
           productId: '^\d+$'
 
+addnewproduct:
+  path: /addnewproduct
+  defaults: {_controller: AppBundle:Default:addNewProduct}
+
+
+
+#AjaxController
+
+getservices:
+    path: /ajaxservice/getservices
+    defaults: {_controller: AppBundle:Ajax:getServices}
+
+
 #SecurityController
 
 login:

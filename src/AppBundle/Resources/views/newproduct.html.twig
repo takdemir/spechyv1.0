@@ -1,0 +1,97 @@
+{% extends "::base.html.twig" %}
+
+
+{% block stylesheets %}
+
+        {#<link rel="stylesheet" href="{{ asset("Assets/css/in") }}" />#}
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+            {{ form_start(productForm,{'attr':{'class':'form-horizontal form-label-left','autocomplete':'off'}}) }}
+
+            <div class="form-group">
+                {{ form_label(productForm.productName,"Ürün İsmi",{"label_attr":{"class":"control-label col-md-3 col-sm-3 col-xs-12"}}) }}
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    {{ form_widget(productForm.productName,{"attr": {"class":"form-control col-md-12 col-sm-12 col-xs-12","placeholder":"Ürün Adı"}}) }}
+                    {% if form_errors(productForm.productName) %}
+                        <ul class="parsley-errors-list filled" id="parsley-id-5">
+                            <li class="parsley-required">{{ form_errors(productForm.productName) }}</li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12 required" for="form_kategori">Kategori</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    <select name="categories" onchange="product.getServices()" class="form-control" id="categories">
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(productForm.services,"Bağlı Servisi",{"label_attr":{"class":"control-label col-md-3 col-sm-3 col-xs-12"}}) }}
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    {{ form_widget(productForm.services,{"attr": {"class":"form-control col-md-12 col-sm-12 col-xs-12","placeholder":"Bağlı Servisi","multiple":"multiple"}}) }}
+                    {% if form_errors(productForm.services) %}
+                        <ul class="parsley-errors-list filled" id="parsley-id-5">
+                            <li class="parsley-required">{{ form_errors(productForm.services) }}</li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                {{ form_label(productForm.slug,"Path/slug",{"label_attr":{"class":"control-label col-md-3 col-sm-3 col-xs-12"}}) }}
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    {{ form_widget(productForm.slug,{"attr": {"class":"form-control col-md-12 col-sm-12 col-xs-12","placeholder":"Path/Slug"}}) }}
+                    {% if form_errors(productForm.slug) %}
+                        <ul class="parsley-errors-list filled" id="parsley-id-5">
+                            <li class="parsley-required">{{ form_errors(productForm.slug) }}</li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-3 col-sm-3 col-xs-12"></div>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    {{ form_widget(productForm.save,{"attr": {"class":"btn btn-success"}}) }}
+                </div>
+            </div>
+
+
+
+            {{ form_end(productForm) }}
+
+        </div>
+        <!-- /page content -->
+
+
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+    <script type="text/javascript" src="{{ asset("Assets/js/product.js") }}"></script>
+
+
+{% endblock %}
