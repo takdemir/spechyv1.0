@@ -47,7 +47,7 @@
             <div class="form-group">
                 {{ form_label(productForm.services,"Bağlı Servisi",{"label_attr":{"class":"control-label col-md-3 col-sm-3 col-xs-12"}}) }}
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                    {{ form_widget(productForm.services,{"attr": {"class":"form-control col-md-12 col-sm-12 col-xs-12","placeholder":"Bağlı Servisi"}}) }}
+                    {{ form_widget(productForm.services,{"attr": {"class":"form-control col-md-12 col-sm-12 col-xs-12","placeholder":"Bağlı Servisi","multiple":"multiple"}}) }}
                     {% if form_errors(productForm.services) %}
                         <ul class="parsley-errors-list filled" id="parsley-id-5">
                             <li class="parsley-required">{{ form_errors(productForm.services) }}</li>

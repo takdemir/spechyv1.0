@@ -6,6 +6,7 @@ use AppBundle\Entity\Products;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -87,20 +88,22 @@ class DefaultController extends Controller
                 $serviceChoices[$service['serviceName']]=$service['id'];
             }
         }
-        //$commonService->printR($serviceChoices);
+
         $productForm=$this->createFormBuilder($productEntity)
                             ->add("productName",TextType::class,[])
                             ->add("services",EntityType::class, array('class'=>'AppBundle\Entity\Services','choice_label' => 'serviceName','query_builder' => function (EntityRepository $er) {
                                 return $er->createQueryBuilder('p')->where("p.categoryId=1")
                                     ->orderBy('p.id', 'ASC');
                             },))
+                            //->add("services",ChoiceType::class,['choices'=>['DENE'=>1,'DD'=>2],'choices_as_values'=>true])
                             ->add("slug",TextType::class,[])
                             ->add("save",SubmitType::class,["label"=>"Kaydet"])
                             ->getForm();
+        //$commonService->printR($request->request->get('form'));
         $productForm->handleRequest($request);
         if($productForm->isSubmitted() && $productForm->isValid()){
-
-            $form=$request->request->all();//$commonService->printR($form);
+            $commonService->printR($request->request->all());
+            $form=$request->request->all();
             $category=$form['categories'];
             $serviceId=$form['form']['services'];
             $productName=$form['form']['productName'];
@@ -125,13 +128,14 @@ class DefaultController extends Controller
 
                 $productsInstance = new Products();
                 $productsInstance->setProductName($productName);
-                $productsInstance->setServiceId($postedServiceId);
                 $productsInstance->setSlug($slug);
                 $productsInstance->setVisible(1);
                 $em->persist($productsInstance);
                 $em->flush();
                 $lastInsertedId = $productsInstance->getid();
                 if ($lastInsertedId > 0) {
+
+
                     $commonService->setMessage('success', 'Kayıt işlemi başarılı!');
                 } else {
                     $commonService->setMessage('error', 'Kayıt işlemi başarısız oldu!');
