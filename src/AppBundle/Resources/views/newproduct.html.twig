@@ -17,6 +17,8 @@
         <!-- page content -->
         <div class="right_col" role="main">
 
+            {% include "AppBundle::alertmessages.html.twig" %}
+
             {{ form_start(productForm,{'attr':{'class':'form-horizontal form-label-left','autocomplete':'off'}}) }}
 
             <div class="form-group">

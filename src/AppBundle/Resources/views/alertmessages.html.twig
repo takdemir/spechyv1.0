@@ -1,0 +1,55 @@
+{# Hata, uyarı ve başarı sonuçlarının gösterildiği alan#}
+
+
+
+
+
+
+
+    {% for err in app.session.flashBag.get("error") %}
+
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4>Bir hata oluştu!</h4>
+
+            {#<p> <button type="button" class="btn btn-danger">Take this action</button>
+                #}{#<button type="button" class="btn btn-default">Or do this</button>#}{#
+            </p> #}
+
+            <p>{{ err }}</p>
+        </div>
+
+    {% endfor %}
+
+
+
+    {% for suc in app.session.flashBag.get("success") %}
+
+        <div class="alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4>İşlem Başarılı!</h4>
+
+            {#<p> <button type="button" class="btn btn-danger">Take this action</button>
+                #}{#<button type="button" class="btn btn-default">Or do this</button>#}{#
+            </p> #}
+
+            <p>{{ suc }}</p>
+        </div>
+
+    {% endfor %}
+
+
+    {% for warn in app.session.flashBag.get("warning") %}
+
+        <div class="alert alert-warning alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4>Uyarı!</h4>
+
+            {#<p> <button type="button" class="btn btn-danger">Take this action</button>
+                #}{#<button type="button" class="btn btn-default">Or do this</button>#}{#
+            </p> #}
+
+            <p>{{ warn }}</p>
+        </div>
+
+    {% endfor %}

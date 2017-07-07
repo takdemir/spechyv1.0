@@ -106,20 +106,37 @@ class DefaultController extends Controller
             $productName=$form['form']['productName'];
             $slug=$form['form']['slug'];
 
-            $postedServiceId=$this->getDoctrine()->getRepository("AppBundle:Services")->find($serviceId);
+            $checkSlugAndProduct=$em->createQueryBuilder()
+                                    ->select("p")
+                                    ->from("AppBundle:Products","p")
+                                    ->where("p.productName=:productName")
+                                    ->orWhere("p.slug=:slug")
+                                    ->setParameters(["productName"=>$productName,"slug"=>$slug])
+                                    ->getQuery()
+                                    ->getArrayResult();
 
-            $productsInstance=new Products();
-            $productsInstance->setProductName($productName);
-            $productsInstance->setServiceId($postedServiceId);
-            $productsInstance->setSlug($slug);
-            $productsInstance->setVisible(1);
-            $em->persist($productsInstance);
-            $em->flush();
-            $lastInsertedId=$productsInstance->getid();
-            if($lastInsertedId>0){
-                $commonService->setMessage('success','Kayıt işlemi başarılı!');
+            if(is_array($checkSlugAndProduct) && count($checkSlugAndProduct)>0) {
+
+                $commonService->setMessage('error', 'Sistemde var olan ürün bilgileri ekleyemezsiniz!');
+
             }else{
-                $commonService->setMessage('error','Kayıt işlemi başarısız oldu!');
+
+                $postedServiceId = $this->getDoctrine()->getRepository("AppBundle:Services")->find($serviceId);
+
+                $productsInstance = new Products();
+                $productsInstance->setProductName($productName);
+                $productsInstance->setServiceId($postedServiceId);
+                $productsInstance->setSlug($slug);
+                $productsInstance->setVisible(1);
+                $em->persist($productsInstance);
+                $em->flush();
+                $lastInsertedId = $productsInstance->getid();
+                if ($lastInsertedId > 0) {
+                    $commonService->setMessage('success', 'Kayıt işlemi başarılı!');
+                } else {
+                    $commonService->setMessage('error', 'Kayıt işlemi başarısız oldu!');
+                }
+
             }
 
         }
