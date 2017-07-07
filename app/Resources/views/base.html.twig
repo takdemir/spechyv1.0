@@ -78,7 +78,7 @@
 
                                                             {% if service.products|is_array and service.products|length>0 %}
                                                                 {% for product in service.products %}
-                                                                    <li><a href="{{ product.slug }}/{{ product.id }}"> {{ product.productName }} </a></li>
+                                                                    <li><a href="{{ path('productDetail',{'slug':product.slug}) }}"> {{ product.productName }} </a></li>
                                                                 {% endfor %}
                                                             {% endif %}
 

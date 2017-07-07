@@ -39,12 +39,11 @@ class DefaultController extends Controller
 
     }
 
-    public function getProductByIdAction($productId, Request $request){
+    public function getProductDetailAction($slug, Request $request){
 
-        if(!preg_match('/^\d+$/',$productId)){ /* TODO: HATA SAYFASINA YÖNLENDİRECEĞİM*/ }
         $commonService=$this->get("app.services.commonservices");
         $productService=$this->get("app.services.productservices");
-        $productDetail=$productService->getProductById($productId);
+        $productDetail=$productService->getProductBySlug($slug);
         $categories=$productService->getTreeForProducts();
         //$commonService->printR($productDetail);
         $message="";
@@ -101,9 +100,9 @@ class DefaultController extends Controller
         $productForm->handleRequest($request);
         if($productForm->isSubmitted() && $productForm->isValid()){
 
-            $form=$request->request->all();
+            $form=$request->request->all();//$commonService->printR($form);
             $category=$form['categories'];
-            $serviceId=$form['services'];
+            $serviceId=$form['form']['services'];
             $productName=$form['form']['productName'];
             $slug=$form['form']['slug'];
 
@@ -118,19 +117,11 @@ class DefaultController extends Controller
             $em->flush();
             $lastInsertedId=$productsInstance->getid();
             if($lastInsertedId>0){
-                $routeEditter=new RouteCollection();
-                $pattern = '/'.$slug;
-                $defaults = array(
-                    '_controller' => 'AppBundle:Default:newRoute',
-                );
-                $route=new Route($pattern,$defaults);
-                $routeEditter->add('newRoute', $route);
                 $commonService->setMessage('success','Kayıt işlemi başarılı!');
             }else{
                 $commonService->setMessage('error','Kayıt işlemi başarısız oldu!');
             }
 
-            $commonService->printR($form);
         }
         return $this->render("AppBundle::newproduct.html.twig",["productForm"=>$productForm->createView(),"categories"=>$categories]);
 

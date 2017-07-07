@@ -12,12 +12,7 @@ AppBundle\Entity\Products:
             generator:
                 strategy: IDENTITY
     fields:
-        serviceId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: service_id
+
         productName:
             type: string
             nullable: false
@@ -40,6 +35,17 @@ AppBundle\Entity\Products:
 
     manyToOne:
             services:
+                targetEntity: Services
+                cascade: {  }
+                fetch: LAZY
+                mappedBy: null
+                inversedBy: null
+                joinColumns:
+                    service_id:
+                        referencedColumnName: id
+                orphanRemoval: false
+
+            serviceId:
                 targetEntity: Services
                 cascade: {  }
                 fetch: LAZY

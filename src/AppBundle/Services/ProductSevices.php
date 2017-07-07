@@ -112,6 +112,27 @@ class ProductSevices
 
 
     /**
+     * @param null $productId
+     * @return mixed
+     */
+    public function getProductBySlug($slug){
+
+        $productDetail=$this->em->createQueryBuilder()
+            ->select("p")
+            ->addSelect("service")
+            ->from("AppBundle:Products","p")
+            ->leftJoin("p.services","service")
+            ->where("p.slug=:slug")
+            ->setParameter("slug",$slug)
+            ->getQuery()
+            ->getArrayResult();
+        //$this->cs->printR($productResult);
+        return $productDetail[0];
+
+    }
+
+
+    /**
      * @return array
      */
     public function getTreeForProducts(){

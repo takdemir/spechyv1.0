@@ -10,11 +10,9 @@ products:
   requirements:
         serviceId: '^\d+$'
 
-productById:
-  path: /product/{productId}
-  defaults: {_controller: AppBundle:Default:getProductById}
-  requirements:
-          productId: '^\d+$'
+productDetail:
+  path: /product/{slug}
+  defaults: {_controller: AppBundle:Default:getProductDetail}
 
 addnewproduct:
   path: /addnewproduct

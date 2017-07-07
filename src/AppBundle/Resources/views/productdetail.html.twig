@@ -59,7 +59,7 @@
 
                 <tr>
                     <td colspan="2">
-                        <a href="{{ path('productById',{'productId': app.request.get('productId')}) }}?addProductToCart=true" class="btn btn-success">Satın Al</a>
+                        <a href="{{ path('productDetail',{'slug': app.request.get('slug')}) }}?addProductToCart=true" class="btn btn-success">Satın Al</a>
                     </td>
                 </tr>
 

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Products
  */
@@ -14,13 +13,7 @@ class Products
     private $id;
 
     /**
-     * @var integer
-     */
-    private $serviceId;
-
-    /**
      * @var string
-     * @Assert\NotBlank(message= "products.name.not_blank")
      */
     private $productName;
 
@@ -31,7 +24,6 @@ class Products
 
     /**
      * @var string
-     * @Assert\NotBlank(message= "products.slug.not_blank")
      */
     private $slug;
 
@@ -39,6 +31,11 @@ class Products
      * @var \AppBundle\Entity\Services
      */
     private $services;
+
+    /**
+     * @var \AppBundle\Entity\Services
+     */
+    private $serviceId;
 
 
     /**
@@ -49,30 +46,6 @@ class Products
     public function getid()
     {
         return $this->id;
-    }
-
-    /**
-     * Set serviceId
-     *
-     * @param integer $serviceId
-     *
-     * @return Products
-     */
-    public function setServiceId($serviceId)
-    {
-        $this->serviceId = $serviceId;
-
-        return $this;
-    }
-
-    /**
-     * Get serviceId
-     *
-     * @return integer
-     */
-    public function getServiceId()
-    {
-        return $this->serviceId;
     }
 
     /**
@@ -169,6 +142,30 @@ class Products
     public function getServices()
     {
         return $this->services;
+    }
+
+    /**
+     * Set serviceId
+     *
+     * @param \AppBundle\Entity\Services $serviceId
+     *
+     * @return Products
+     */
+    public function setServiceId(\AppBundle\Entity\Services $serviceId = null)
+    {
+        $this->serviceId = $serviceId;
+
+        return $this;
+    }
+
+    /**
+     * Get serviceId
+     *
+     * @return \AppBundle\Entity\Services
+     */
+    public function getServiceId()
+    {
+        return $this->serviceId;
     }
 }
 
