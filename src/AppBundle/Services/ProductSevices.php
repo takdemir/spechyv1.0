@@ -51,8 +51,10 @@ class ProductSevices
         $services=$this->em->createQueryBuilder()
             ->select("p")
             ->addSelect("cat")
+            ->addSelect("products")
             ->from("AppBundle:Services","p")
-            ->leftJoin("p.categories","cat");
+            ->leftJoin("p.categories","cat")
+            ->leftJoin("p.products","products");
         if(!is_null($categoryId)){
             $services->where("p.categoryId=:categoryId");
             $services->setParameter("categoryId",$categoryId);
@@ -69,21 +71,17 @@ class ProductSevices
      * @param null $serviceId
      * @return array
      */
-    public function getProducts($serviceId=null){
+    public function getProducts($serviceId){
 
         $products=$this->em->createQueryBuilder()
             ->select("p")
             ->addSelect("service")
             ->from("AppBundle:Products","p")
-            ->leftJoin("p.services","service");
-        if(!is_null($serviceId)){
-            $products->where("p.serviceId=:serviceId");
-            $products->setParameter("serviceId",$serviceId);
-        }
-        $productResult=$products->getQuery()
+            ->leftJoin("p.services","service")
+            ->getQuery()
             ->getArrayResult();
-        //$this->cs->printR($productResult);
-        return $productResult;
+        //$this->cs->printR($products);
+        return $products;
 
     }
 
@@ -138,18 +136,25 @@ class ProductSevices
     public function getTreeForProducts(){
 
         $categories=$this->getCategories();
-        foreach ($categories as $key=>&$category){
+        $services=$this->getServices(); //$this->cs->printR($services);
+        $collectData=[];
+        foreach ($services as $service){
 
-            if(!is_array($category['services']) || count($category['services'])==0){continue;}
-            foreach ($category['services'] as &$service){
-                $products=$this->getProducts($service['id']);
-                if(!is_array($products) || count($products)==0){$service['products']=[];continue;}
-                $service['products']=$products;
+            if(!array_key_exists($service['categories']['category'],$collectData)){
+                $collectData[$service['categories']['category']]=[];
             }
 
+            $collectData[$service['categories']['category']]['services'][]=['serviceId'=>$service['id'],'serviceName'=>$service['serviceName'],'products'=>$service['products']];
+            if(is_array($service['products']) && count($service['products'])>0){
+                /*foreach($service['products'] as $product){
+                    $collectData[$service['categories']['category']]['services']['products'][]=['productId'=>$product['id'],'productName'=>$product['productName'],'slug'=>$product['slug']];
+                }*/
+
+            }
         }
+
         //$this->cs->printR($categories);
-        return $categories;
+        return $collectData;
     }
 
 

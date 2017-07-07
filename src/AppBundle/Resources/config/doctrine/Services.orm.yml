@@ -44,10 +44,18 @@ AppBundle\Entity\Services:
                         referencedColumnName: id
                 orphanRemoval: false
 
+    manyToMany:
+            products:
+              targetEntity: Products
+              inversedBy: services
+              joinTable:
+                name: serviceProductRelation
+                joinColumns:
+                  serviceId:
+                    referencedColumnName: id
+                inverseJoinColumns:
+                  productId:
+                    referencedColumnName: id
 
-    oneToMany:
-                products:
-                    targetEntity: Products
-                    mappedBy: services
 
     lifecycleCallbacks: {  }

@@ -33,27 +33,9 @@ AppBundle\Entity\Products:
                 unsigned: false
             column: slug
 
-    manyToOne:
+    manyToMany:
             services:
-                targetEntity: Services
-                cascade: {  }
-                fetch: LAZY
-                mappedBy: null
-                inversedBy: null
-                joinColumns:
-                    service_id:
-                        referencedColumnName: id
-                orphanRemoval: false
-
-            serviceId:
-                targetEntity: Services
-                cascade: {  }
-                fetch: LAZY
-                mappedBy: null
-                inversedBy: null
-                joinColumns:
-                    service_id:
-                        referencedColumnName: id
-                orphanRemoval: false
+              targetEntity: Services
+              mappedBy: products
 
     lifecycleCallbacks: {  }

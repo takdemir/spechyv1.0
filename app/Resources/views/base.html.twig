@@ -66,11 +66,11 @@
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-home"></i> Kategoriler <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    {% for category in categories %}
-                                        <li><a><i class="fa"></i> {{ category.category }} <span class="fa fa-chevron-down"></span></a>
+                                    {% for cat_key,category in categories %}
+                                        <li><a><i class="fa"></i> {{ cat_key }} <span class="fa fa-chevron-down"></span></a>
 
                                             <ul class="nav child_menu">
-                                                {% for service in category.services %}
+                                                {% for ser_key,service in category.services %}
 
                                                     <li><a><i class="fa"></i> {{ service.serviceName }} {% if service.products|is_array and service.products|length!=0 %}<span class="fa fa-chevron-down"></span>{% endif %}</a>
 

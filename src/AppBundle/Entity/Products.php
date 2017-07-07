@@ -28,15 +28,17 @@ class Products
     private $slug;
 
     /**
-     * @var \AppBundle\Entity\Services
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $services;
 
     /**
-     * @var \AppBundle\Entity\Services
+     * Constructor
      */
-    private $serviceId;
-
+    public function __construct()
+    {
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -121,51 +123,37 @@ class Products
     }
 
     /**
-     * Set services
+     * Add service
      *
-     * @param \AppBundle\Entity\Services $services
+     * @param \AppBundle\Entity\Services $service
      *
      * @return Products
      */
-    public function setServices(\AppBundle\Entity\Services $services = null)
+    public function addService(\AppBundle\Entity\Services $service)
     {
-        $this->services = $services;
+        $this->services[] = $service;
 
         return $this;
+    }
+
+    /**
+     * Remove service
+     *
+     * @param \AppBundle\Entity\Services $service
+     */
+    public function removeService(\AppBundle\Entity\Services $service)
+    {
+        $this->services->removeElement($service);
     }
 
     /**
      * Get services
      *
-     * @return \AppBundle\Entity\Services
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getServices()
     {
         return $this->services;
-    }
-
-    /**
-     * Set serviceId
-     *
-     * @param \AppBundle\Entity\Services $serviceId
-     *
-     * @return Products
-     */
-    public function setServiceId(\AppBundle\Entity\Services $serviceId = null)
-    {
-        $this->serviceId = $serviceId;
-
-        return $this;
-    }
-
-    /**
-     * Get serviceId
-     *
-     * @return \AppBundle\Entity\Services
-     */
-    public function getServiceId()
-    {
-        return $this->serviceId;
     }
 }
 

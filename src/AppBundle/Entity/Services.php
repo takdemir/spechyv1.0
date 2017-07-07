@@ -28,14 +28,14 @@ class Services
     private $visible;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $products;
-
-    /**
      * @var \AppBundle\Entity\Categories
      */
     private $categories;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $products;
 
     /**
      * Constructor
@@ -128,6 +128,30 @@ class Services
     }
 
     /**
+     * Set categories
+     *
+     * @param \AppBundle\Entity\Categories $categories
+     *
+     * @return Services
+     */
+    public function setCategories(\AppBundle\Entity\Categories $categories = null)
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \AppBundle\Entity\Categories
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
      * Add product
      *
      * @param \AppBundle\Entity\Products $product
@@ -160,28 +184,5 @@ class Services
     {
         return $this->products;
     }
-
-    /**
-     * Set categories
-     *
-     * @param \AppBundle\Entity\Categories $categories
-     *
-     * @return Services
-     */
-    public function setCategories(\AppBundle\Entity\Categories $categories = null)
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
-    /**
-     * Get categories
-     *
-     * @return \AppBundle\Entity\Categories
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
 }
+
