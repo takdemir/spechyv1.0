@@ -129,8 +129,6 @@ class DefaultController extends Controller
 
             }else{
 
-                $postedServiceId = $this->getDoctrine()->getRepository("AppBundle:Services")->find($serviceId);
-
                 $productsInstance = new Products();
                 $productsInstance->setProductName($productName);
                 $productsInstance->setSlug($slug);
