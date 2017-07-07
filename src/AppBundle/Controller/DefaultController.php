@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,15 +95,19 @@ class DefaultController extends Controller
                             ->add("services",EntityType::class, array('class'=>'AppBundle\Entity\Services','choice_label' => 'serviceName','query_builder' => function (EntityRepository $er) {
                                 return $er->createQueryBuilder('p')->where("p.categoryId=1")
                                     ->orderBy('p.id', 'ASC');
-                            },))
-                            //->add("services",ChoiceType::class,['choices'=>['DENE'=>1,'DD'=>2],'choices_as_values'=>true])
+                            }, 'multiple'=>true))
+                            /*->add('services', 'entity', array(
+                                'class' => 'AppBundle\Entity\Services',
+                                'property'     => 'serviceName',
+                                'multiple'     => true
+                            ))*/
                             ->add("slug",TextType::class,[])
                             ->add("save",SubmitType::class,["label"=>"Kaydet"])
                             ->getForm();
         //$commonService->printR($request->request->get('form'));
         $productForm->handleRequest($request);
         if($productForm->isSubmitted() && $productForm->isValid()){
-            $commonService->printR($request->request->all());
+            //$commonService->printR($request->request->all());
             $form=$request->request->all();
             $category=$form['categories'];
             $serviceId=$form['form']['services'];
