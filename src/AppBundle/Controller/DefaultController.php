@@ -76,7 +76,7 @@ class DefaultController extends Controller
     public function addNewProductAction(Request $request){
         $commonService=$this->get("app.services.commonservices");
         $productService=$this->get("app.services.productservices");
-        $categories=$productService->getTreeForProducts();
+        $categories=$productService->getCategories();
         $em=$this->getDoctrine()->getEntityManager();
         $productEntity=new Products();
         $services=$productService->getServices(1);
